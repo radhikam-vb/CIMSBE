@@ -5,7 +5,8 @@ const cimsRouter=require("./routes/cims");
 const mongoose=require("mongoose");
 const bodyParser=require("body-parser");
 const jsonwebtoken=require("jsonwebtoken");
-
+const countries = require('country-state-picker');
+const fetch = require('node-fetch')
 
 // dotenv.config()
 const port=process.env.PORT || 4000
@@ -31,6 +32,35 @@ if(username == null) user = {name : "Dummy username"}
 
 const token = jsonwebtoken.sign(user,TOKEN_SECRET, {expiresIn: '3600s'})
     res.json({ Token: token})
+})
+
+app.get('/location', async (req, res)=>{
+    const pincode = req.headers.pincode
+    const country = req.headers.country
+
+    const url = `https://api.worldpostallocations.com/pincode?postalcode=${pincode}&countrycode=${country}`
+    const fetch_res = await fetch(url)
+
+    const location = await fetch_res.json()
+    const state = location.result[0].state
+
+    const districts = location.result.reduce(function(res, curr){
+        res[curr.district] = res[curr.district] || []
+        res[curr.district].push(curr.postalLocation)
+        return res
+    }, {})
+
+    const data = new Object({
+        state,
+        districts
+    })
+    
+    res.json(data)
+})
+
+app.get('/countries', async (req, res)=>{
+    const countriesList = countries.getCountries()
+    res.json(countriesList)
 })
 
 app.use('/', (req, res) => {
