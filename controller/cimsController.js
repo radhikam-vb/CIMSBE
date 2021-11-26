@@ -1,6 +1,6 @@
 const compModal=require("../model/compSchema");
 const {cimsSchema}=require("../schema/cimsSchema");
-//const {customResponse}=require("../utility/helper");
+const {customResponse} =require("../utility/helper");
  const cimsGet = async(req, res)=>{
     // const {designation, brandname, clientname, domain, baselocation, companyaddress, contacts }=req.body
 
@@ -22,8 +22,14 @@ const {cimsSchema}=require("../schema/cimsSchema");
         if (error) {
       code = 422;
       message = "Invalid request data";
+      const resData = customResponse({
+        code,
+        message,
+        err: error && error.details,
+      });
+      return res.status(code).send(resData);
       
-      return res.status(code).send(error);
+      //return res.status(code).send(error);
     }
         const newComp = await compModal.create({designation, brandname, clientname, domain, baselocation, addressLine1, addressLine2, pincode, country, state, district, city, landmark, contacts })
         res.json(newComp)
