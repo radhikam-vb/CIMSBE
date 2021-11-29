@@ -14,16 +14,15 @@ const cimsSchema = Joi.object()
     state: Joi.string().required(),
     district: Joi.string().required(),
     city: Joi.string().required(),
-    contacts: Joi.string().min(10),
 
   })
 
-  .options({ abortEarly: false });
+  .options({ abortEarly: false, allowUnknown: true });
 
   
   const locationSchema = Joi.object()
   .keys({
-    pincode: Joi.string().min(4),
+    pincode: Joi.number().min(4),
     country: Joi.string()
   }).options({ allowUnknown: true });
   

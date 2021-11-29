@@ -2,7 +2,9 @@ const countries = require('country-state-picker');
 const fetch = require('node-fetch')
 const { locationSchema } = require('../schema/cimsSchema')
 const { customResponse } = require("../utility/helper");
+const jwt = require('jsonwebtoken')
 
+const TOKEN_SECRET = '6850cc6ab29180f03f647c9b7ff331298038b2cd9bf71980f87bfd547e0da37ac60c4c5d7f7136f81b81496a741f496ea3e528b70755bcf020874e0ef01446db'
 
 const postLogin = (req, res) => {
     const username = req.body.username
@@ -10,7 +12,7 @@ const postLogin = (req, res) => {
 
     if (username == null) user = { name: "Dummy username" }
 
-    const token = jsonwebtoken.sign(user, TOKEN_SECRET, { expiresIn: '3600s' })
+    const token = jwt.sign(user, TOKEN_SECRET, { expiresIn: '3600s' })
     res.json({ Token: token })
 }
 
