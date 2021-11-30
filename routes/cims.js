@@ -7,9 +7,9 @@ router.get('/', authenticateToken,cimsGet)
 
 router.post('/', authenticateToken, cimsPost)
 
-router.delete('/:id', cimsDel)
+router.delete('/', cimsDel)
 
-router.patch('/:id', cimsPatch)
+router.patch('/',authenticateToken, cimsPatch)
 
 const token_secret = '6850cc6ab29180f03f647c9b7ff331298038b2cd9bf71980f87bfd547e0da37ac60c4c5d7f7136f81b81496a741f496ea3e528b70755bcf020874e0ef01446db'
 

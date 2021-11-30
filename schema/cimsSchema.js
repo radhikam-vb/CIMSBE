@@ -9,7 +9,6 @@ const cimsSchema = Joi.object()
     domain: Joi.string().required(),
     baselocation: Joi.string().required(),
     addressLine1: Joi.string().required(),
-    pincode: Joi.string().min(6),
     country: Joi.string().min(4).required(),
     state: Joi.string().required(),
     district: Joi.string().required(),

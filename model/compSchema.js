@@ -1,61 +1,25 @@
-const mongoose =require("mongoose");
+const mongoose = require("mongoose");
 
- const compSchema =  mongoose.Schema({
-       designation: {
-        type: String,
-        required: true
-    },
-    brandname: {
-        type: String,
-        required: true
-    },
-    clientname: {
-        type: String,
-        required: true
-    },
-    domain: {
-        type: String,
-        required: true
-    },
-    baselocation: {
-        type: String,
-        required: true
-    },
-    addressLine1: {
-        type: String,
-        required: true
-    },
+const compSchema = mongoose.Schema({
+    designation: String,
+    brandname: String,
+    clientname: String,
+    domain: String,
+    baselocation: String,
+    addressLine1: String,
     addressLine2: String,
-    pincode: {
-        type: Number,
-        required: true
-    },
-    country: {
-        type: String,
-        required: true
-    },
-    state: {
-        type: String,
-        required: true
-    },
-    district: {
-        type: String,
-        required: true
-    },
-    city: {
-        type: String,
-        required: true
-    },
+    pincode: Number,
+    country: String,
+    state: String,
+    district: String,
+    city: String,
     landmark: String,
-    contacts: {
-        type: Object,
-        required: true
- },
+    contacts: Object,
 },
     {
         timestamps: true,
     }
-    
+
 );
-const compModal=mongoose.model("Comp",compSchema);
-module.exports=compModal;
+const compModal = mongoose.model("Comp", compSchema);
+module.exports = compModal;
