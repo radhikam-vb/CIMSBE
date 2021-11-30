@@ -4,6 +4,7 @@ const { locationSchema } = require('../schema/cimsSchema')
 const { customResponse } = require("../utility/helper");
 const jwt = require('jsonwebtoken');
 const { custom } = require('joi');
+const compModal = require("../model/compSchema");
 
 const TOKEN_SECRET = '6850cc6ab29180f03f647c9b7ff331298038b2cd9bf71980f87bfd547e0da37ac60c4c5d7f7136f81b81496a741f496ea3e528b70755bcf020874e0ef01446db'
 
@@ -51,8 +52,8 @@ const getLocation = async (req, res) => {
         })
 
         code = 200,
-        data = locs,
-        message = "Data fetched successfully"
+            data = locs,
+            message = "Data fetched successfully"
         const resData = customResponse({
             code,
             data,
@@ -88,5 +89,24 @@ const getCountriesList = async (req, res) => {
     res.send(resData)
 }
 
+const getclientinfo = async (req, res) => {
+    try {
+        const clientId = req.headers['id']
+        const Comps = await compModal.find({ _id: clientId });
+        code = 200
+        data = Comps
+        message = "Data fetched successfully"
+        const resData = customResponse({
+            code,
+            data,
+            message
+        })
+        res.send(resData)
 
-module.exports = { postLogin, getLocation, getCountriesList }
+    } catch (error) {
+        console.log(error)
+        res.status(500).send(error)
+    }
+}
+
+module.exports = { postLogin, getLocation, getCountriesList, getclientinfo }
