@@ -23,10 +23,10 @@ const cimsGet = async (req, res) => {
 };
 //
 const cimsPost = async (req, res) => {
-    const { designation, brandname, clientname, domain, baselocation, pincode, country, state, district, city, addressLine1, addressLine2, landmark, contacts } = req.body
+    const { designation, brandname, clientname, domain, baselocation, pincode, country, state, district, city, addressLine1, addressLine2, landmark, contacts } = req.body.formData
     //console.log({designation, brandname, clientname, domain, baselocation,pincode,country,state,district,city,addressLine1,addressLine2,landmark,contacts})
     try {
-        const { error } = cimsSchema.validate(req.body);
+        const { error } = cimsSchema.validate(req.body.formData);
         //console.log(error)
         if (error) {
             code = 422;
@@ -62,7 +62,7 @@ const cimsDel = async (req, res) => {
 //
 const cimsPatch = async (req, res) => {
     const { id } = req.query;
-    const { designation, brandname, clientname, domain, baselocation, pincode, country, state, district, city, addressLine1, addressLine2, landmark, contacts } = req.body;
+    const { designation, brandname, clientname, domain, baselocation, pincode, country, state, district, city, addressLine1, addressLine2, landmark, contacts } = req.body.formData;
     try {
         const update = await compModal.findOneAndUpdate({ _id: id }, {
             designation: designation, brandname: brandname, clientname: clientname, domain: domain, baselocation: baselocation,
