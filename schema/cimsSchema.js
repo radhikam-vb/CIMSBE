@@ -27,6 +27,15 @@ const cimsSchema = Joi.object()
 //
 const updateSchema = Joi.object()
   .keys({
+    designation: Joi.string(),
+    brandname: Joi.string(),
+    domain: Joi.string(),
+    baselocation: Joi.string(),
+    addressLine1: Joi.string(),
+    country: Joi.string().min(4),
+    state: Joi.string(),
+    district: Joi.string(),
+    city: Joi.string(),
     pincode: Joi.number().min(4),
   }).options({  abortEarly: false, allowUnknown: true });
 
