@@ -12,7 +12,7 @@ const cimsSchema = Joi.object()
     state: Joi.string().required(),
     district: Joi.string().required(),
     city: Joi.string().required(),
-    
+    pincode: Joi.number().min(0),
 
   })
 
@@ -21,7 +21,7 @@ const cimsSchema = Joi.object()
   
   const locationSchema = Joi.object()
   .keys({
-    pincode: Joi.number().min(4),
+    pincode: Joi.number().min(0),
     country: Joi.string()
   }).options({ allowUnknown: true });
 //
@@ -36,7 +36,7 @@ const updateSchema = Joi.object()
     state: Joi.string(),
     district: Joi.string(),
     city: Joi.string(),
-    pincode: Joi.number().min(4),
+    pincode: Joi.number().min(0),
   }).options({  abortEarly: false, allowUnknown: true });
 
 
